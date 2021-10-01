@@ -9,9 +9,7 @@ export interface fullQuoteResponse extends quoteResponse {
 }
 
 export async function randomQuote(percent: number): Promise<string> {
-  const res = await axios.get<quoteResponse>(
-    `https://food-waste-quotes-api.herokuapp.com/quote?percent=${percent}`
-  );
+  const res = await axios.get<quoteResponse>(`/api/quote?percent=${percent}`);
   return res.data.quote;
 }
 

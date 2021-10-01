@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Home from "./views/Home";
 import Admin from "./views/Admin";
-import PageNotFound from "./views/404";
 
 export default function App() {
   return (
@@ -23,7 +22,6 @@ export default function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/admin" component={Admin} />
-            <Route path="*" component={PageNotFound} />
           </Switch>
         </div>
       </div>
