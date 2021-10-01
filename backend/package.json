@@ -8,8 +8,7 @@
     "build": "tsc",
     "start": "node --experimental-specifier-resolution=node dist/index.js",
     "server": "yarn start",
-    "dev": "yarn build && yarn start",
-    "heroku-postbuild": "yarn install && yarn build"
+    "dev": "yarn build && yarn start"
   },
   "author": "",
   "license": "ISC",
