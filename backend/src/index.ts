@@ -1,12 +1,14 @@
 import express from "express";
+import cors from "cors";
 
-import getQuote from "./data";
+import getQuote, { data } from "./data";
 
 const app = express();
+const PORT = process.env.PORT || 3030;
 
-const PORT = process.env.PORT || 3000;
+app.use(cors());
 
-app.get("/", (req, res) => {
+app.get("/api/quote", (req, res) => {
   if (!req.query.percent) {
     res.status(400);
     res.json({ error: "No Query 'percent' founded" });
@@ -25,6 +27,17 @@ app.get("/", (req, res) => {
   res.json({
     quote: getQuote(percent),
   });
+});
+
+app.get("/api/allquotes", (req, res) => {
+  if (req.query.password != "1234") {
+    res.status(403);
+    res.json({ error: "Access Denied" });
+    return;
+  }
+
+  res.status(200);
+  res.json(data);
 });
 
 app.listen(PORT, () => {

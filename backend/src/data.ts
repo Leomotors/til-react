@@ -1,8 +1,13 @@
-const data = [
+export const data = [
   {
     quote:
       "Methane Produced by this Meal equals to a cow's fart of __PARAMS__ days!",
     count: 3,
+  },
+  {
+    quote:
+      "Methane Produced by this Meal equals to a dog's fart of __PARAMS__ days!",
+    count: 7,
   },
 ];
 
