@@ -4,8 +4,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "serve": "vite preview",
-    "heroku-postbuild": "yarn install && yarn build"
+    "serve": "vite preview"
   },
   "dependencies": {
     "axios": "^0.22.0",
