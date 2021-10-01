@@ -1,13 +1,11 @@
 {
   "name": "food-waste-quotes",
   "version": "1.0.0",
-  "proxy": "localhost:3030",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && yarn build-server",
+    "build": "tsc && vite build",
     "serve": "vite preview",
-    "build-server": "cd backend && yarn install && yarn build",
-    "start": "cd backend && yarn start"
+    "heroku-postbuild": "yarn install && yarn build"
   },
   "dependencies": {
     "axios": "^0.22.0",
