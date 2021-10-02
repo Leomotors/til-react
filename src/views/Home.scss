@@ -1,0 +1,32 @@
+$bs-input-bg: #e9ecef;
+$bs-input-border: #ced4da;
+
+.slider-group {
+  max-width: 80%;
+  background-color: $bs-input-bg;
+  border: 1px solid $bs-input-border;
+  border-radius: 0.25em;
+
+  & > .slider {
+    max-width: 95%;
+    margin: 0 0.5em;
+  }
+
+  & > .slider-label {
+    width: 3em;
+    background-color: $bs-input-bg;
+    border: 1px solid #aeb3b8;
+    border-radius: inherit;
+    font-size: 1.8em;
+    padding: 0.25em 0;
+    user-select: none;
+  }
+}
+
+.quote-container {
+  background-color: $bs-input-bg;
+  border: 1px solid $bs-input-border;
+  border-radius: 1em;
+  padding: 4em;
+  margin: 2em 0;
+}
