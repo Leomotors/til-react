@@ -10,6 +10,6 @@ export default (req: VercelRequest, res: VercelResponse) => {
     return;
   }
 
-  console.log("API allquote responded");
+  console.log("API allquote responded successfully (200)");
   res.status(200).json(getAllQuotes());
 };

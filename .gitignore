@@ -6,5 +6,6 @@ dist-ssr
 .vscode
 
 .vercel
+.env
 
 src/config.ts

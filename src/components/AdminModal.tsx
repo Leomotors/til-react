@@ -1,7 +1,5 @@
 import { useState } from "react";
-
 import { Modal } from "react-bootstrap";
-
 import { useHistory } from "react-router";
 
 import "./AdminModal.scss";
@@ -24,7 +22,7 @@ export default function AdminModal({
   }
 
   return (
-    <Modal show={show} onHide={goHome} backdrop="static" keyboard={false}>
+    <Modal show={show} onHide={goHome} backdrop="static" keyboard={true}>
       <Modal.Header closeButton>
         <Modal.Title>Please Enter Password</Modal.Title>
       </Modal.Header>

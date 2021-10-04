@@ -1,17 +1,23 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
-import { fullQuoteResponse, getAllQuote } from "../utils/Quote";
+import { getAllQuote } from "../utils/Quote";
+import { Quote } from "../models/Quote";
 
 import AdminModal from "../components/AdminModal";
+import FormModal from "../components/FormModal";
+import Alert from "../components/Alert";
 
 export default function Admin() {
-  const [quotes, setQuotes] = useState<fullQuoteResponse[]>([]);
-  const [showModal, setShowModal] = useState(false);
+  const [quotes, setQuotes] = useState<Quote[]>([]);
+  const [showAdmin, setShowAdmin] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+
   const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     if (!localStorage.getItem("password")) {
-      setShowModal(true);
+      setShowAdmin(true);
     } else {
       requestQuotes();
     }
@@ -19,7 +25,7 @@ export default function Admin() {
 
   function submitPassword(newPassword: string) {
     return () => {
-      setShowModal(false);
+      setShowAdmin(false);
       localStorage.setItem("password", newPassword);
       requestQuotes();
     };
@@ -29,14 +35,52 @@ export default function Admin() {
     const quotes = await getAllQuote(localStorage.getItem("password") ?? "");
     if (typeof quotes == "string") {
       setErrorMsg(quotes);
-      setShowModal(true);
+      setShowAdmin(true);
     } else {
       setQuotes(quotes);
     }
   }
 
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertType, setAlertType] = useState("");
+  const [alertContent, setAlertContent] = useState("");
+
+  function resetAlert() {
+    setShowAlert(false);
+    setAlertType("");
+    setAlertContent("");
+  }
+
+  async function handleNewQuote(quote: string, count: number) {
+    try {
+      await axios.post("/api/addquote", {
+        quote,
+        count,
+        password: localStorage.getItem("password"),
+      });
+      setAlertContent("Quote added Successfully");
+      setAlertType("success");
+      setShowAlert(true);
+    } catch (err) {
+      // @ts-ignore
+      setAlertContent(err.message as string);
+      setAlertType("danger");
+      setShowAlert(true);
+    }
+
+    setTimeout(() => resetAlert(), 3000);
+  }
+
   return (
-    <div className="Admin container-lg p-5">
+    <div className="Admin container-lg p-5 d-flex flex-column">
+      <Alert show={showAlert} type={alertType} content={alertContent} />
+      <button
+        className="btn btn-dark align-self-end mb-2"
+        onClick={() => setShowForm(true)}
+      >
+        <i className="bi bi-plus me-1 fs-5" />
+        <span className="fs-5">Add Quote</span>
+      </button>
       <table className="table table-bordered">
         <thead>
           <tr className="table-secondary">
@@ -59,9 +103,14 @@ export default function Admin() {
         </tbody>
       </table>
       <AdminModal
-        show={showModal}
+        show={showAdmin}
         submitPassword={submitPassword}
         errorMsg={errorMsg}
+      />
+      <FormModal
+        show={showForm}
+        onHide={() => setShowForm(false)}
+        onSubmit={handleNewQuote}
       />
     </div>
   );

@@ -12,6 +12,6 @@ export default (req: VercelRequest, res: VercelResponse) => {
     return;
   }
 
-  console.log("API quote responded");
+  console.log("API quote responded successfully (200)");
   res.status(200).json({ quote: getQuote(perc) });
 };
