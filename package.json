@@ -1,18 +1,25 @@
 {
   "name": "food-waste-quotes",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "private": true,
   "scripts": {
-    "dev": "vite --port $PORT",
+    "dev": "yarn inc && yarn config-pkg && vite --port $PORT",
     "build": "tsc && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "inc": "node node_modules/leomotors-automation/incrementVersion.js",
+    "config-pkg": "node node_modules/leomotors-automation/configPackage.js"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.6.1",
     "axios": "^0.22.0",
     "bootstrap": "^5.1.1",
+    "leomotors-automation": "^1.0.1",
     "react": "^17.0.0",
+    "react-bootstrap": "^2.0.0-rc.0",
     "react-dom": "^17.0.0",
-    "react-router-dom": "^5.3.0"
+    "react-redux": "^7.2.5",
+    "react-router-dom": "^5.3.0",
+    "redux": "^4.1.1"
   },
   "repository": {
     "type": "git",

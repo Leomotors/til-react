@@ -2,15 +2,37 @@ import { useState, useEffect } from "react";
 
 import { fullQuoteResponse, getAllQuote } from "../utils/Quote";
 
+import AdminModal from "../components/AdminModal";
+
 export default function Admin() {
   const [quotes, setQuotes] = useState<fullQuoteResponse[]>([]);
+  const [showModal, setShowModal] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
-    init();
+    if (!localStorage.getItem("password")) {
+      setShowModal(true);
+    } else {
+      requestQuotes();
+    }
   }, []);
 
-  async function init() {
-    setQuotes(await getAllQuote());
+  function submitPassword(newPassword: string) {
+    return () => {
+      setShowModal(false);
+      localStorage.setItem("password", newPassword);
+      requestQuotes();
+    };
+  }
+
+  async function requestQuotes() {
+    const quotes = await getAllQuote(localStorage.getItem("password") ?? "");
+    if (typeof quotes == "string") {
+      setErrorMsg(quotes);
+      setShowModal(true);
+    } else {
+      setQuotes(quotes);
+    }
   }
 
   return (
@@ -24,8 +46,8 @@ export default function Admin() {
           </tr>
         </thead>
         <tbody>
-          {quotes.map((quote) => (
-            <tr>
+          {quotes.map((quote, index) => (
+            <tr key={index}>
               <td>{quote.quote}</td>
               <td>{quote.count}</td>
               <td className="d-flex flex-row justify-content-around">
@@ -36,6 +58,11 @@ export default function Admin() {
           ))}
         </tbody>
       </table>
+      <AdminModal
+        show={showModal}
+        submitPassword={submitPassword}
+        errorMsg={errorMsg}
+      />
     </div>
   );
 }
