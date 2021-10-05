@@ -24,6 +24,7 @@ jobs:
   Publish:
     name: Publish Release
     runs-on: ubuntu-latest
+    needs: Build
 
     steps:
       - name: Checkout Repository

@@ -1,10 +1,10 @@
 {
   "name": "food-waste-quotes",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": true,
   "scripts": {
     "dev": "yarn inc && yarn config-pkg && vite --port $PORT",
-    "build": "vite build",
+    "build": "yarn config-pkg && vite build",
     "serve": "vite preview",
     "inc": "node node_modules/leomotors-automation/incrementVersion.js",
     "config-pkg": "node node_modules/leomotors-automation/configPackage.js"
