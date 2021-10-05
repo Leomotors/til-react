@@ -37,7 +37,15 @@ export default function Admin() {
       setErrorMsg(quotes);
       setShowAdmin(true);
     } else {
-      setQuotes(quotes);
+      setQuotes(
+        quotes.sort((a: Quote, b: Quote) => {
+          const ac = a.created_at;
+          const bc = b.created_at;
+          if (ac < bc) return 1;
+          else if (ac > bc) return -1;
+          else return 0;
+        })
+      );
     }
   }
 
@@ -61,6 +69,7 @@ export default function Admin() {
       setAlertContent("Quote added Successfully");
       setAlertType("success");
       setShowAlert(true);
+      requestQuotes();
     } catch (err) {
       // @ts-ignore
       setAlertContent(err.message as string);
@@ -69,6 +78,15 @@ export default function Admin() {
     }
 
     setTimeout(() => resetAlert(), 3000);
+  }
+
+  async function deleteQuote(id: string) {
+    return async () => {
+      await axios.post("/api/deletequote", {
+        id,
+        password: localStorage.getItem("password"),
+      });
+    };
   }
 
   return (

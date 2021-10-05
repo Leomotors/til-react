@@ -4,4 +4,6 @@ export interface miniQuote {
 
 export interface Quote extends miniQuote {
   count: number;
+  id: string;
+  created_at: string;
 }

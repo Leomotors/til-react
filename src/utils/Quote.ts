@@ -7,7 +7,8 @@ export async function randomQuote(percent: number): Promise<string> {
     const res = await axios.get<miniQuote>(`/api/quote?percent=${percent}`);
     return res.data.quote;
   } catch (err) {
-    return "Server Error";
+    // @ts-ignore
+    return err.message as string;
   }
 }
 

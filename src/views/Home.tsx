@@ -6,11 +6,10 @@ import { randomQuote } from "../utils/Quote";
 
 const calmDown = "Calm down! You are sending too many request!";
 export default function Home() {
-  let ongoingRequest = false;
-
   const [percent, setPercent] = useState(50);
   const [quote, setQuote] = useState("");
   const [error, setError] = useState("");
+  const [ongoingRequest, setOngoingRequest] = useState(false);
 
   function setSlider(e: React.ChangeEvent<HTMLInputElement>) {
     setPercent(parseInt(e.target.value));
@@ -29,11 +28,11 @@ export default function Home() {
       return;
     }
 
-    ongoingRequest = true;
+    setOngoingRequest(true);
     const newQuote = await randomQuote(percent);
-    if (newQuote == "Server Error") setError(newQuote);
+    if (newQuote.toString().toLowerCase().includes("error")) setError(newQuote);
     else setQuote(newQuote);
-    ongoingRequest = false;
+    setOngoingRequest(false);
   }
 
   return (
@@ -61,9 +60,14 @@ export default function Home() {
 
       {error.length > 0 && <h3 className="text-danger mt-4">{error}</h3>}
 
-      {quote.length > 0 && (
+      {(quote.length > 0 || ongoingRequest) && (
         <div className="quote-container">
-          <h1>{quote}</h1>
+          {ongoingRequest && (
+            <div className="progress mb-4">
+              <div className="progress-bar progress-bar-striped progress-bar-animated" />
+            </div>
+          )}
+          {quote.length > 0 && <h1>{quote}</h1>}
         </div>
       )}
     </div>

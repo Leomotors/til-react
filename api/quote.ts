@@ -2,7 +2,7 @@ import { VercelRequest, VercelResponse } from "@vercel/node";
 
 import { getQuote } from "../lib/getQuote";
 
-export default (req: VercelRequest, res: VercelResponse) => {
+export default async (req: VercelRequest, res: VercelResponse) => {
   const { percent } = req.query;
 
   const perc = parseInt(percent as string);
@@ -12,6 +12,6 @@ export default (req: VercelRequest, res: VercelResponse) => {
     return;
   }
 
+  res.status(200).json({ quote: await getQuote(perc) });
   console.log("API quote responded successfully (200)");
-  res.status(200).json({ quote: getQuote(perc) });
 };
