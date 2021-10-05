@@ -5,14 +5,14 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./views/Home";
 import Admin from "./views/Admin";
 
-import { Version } from "./config";
+import { Version, BuildTime } from "./config";
 
 export default function App() {
   return (
     <Router>
       <div className="App">
         <div className="navbar bg-primary px-4">
-          <div className="brand">
+          <div className="brand" title={`Built at ${BuildTime}`}>
             <Link to="/" className="navbar-brand fs-2">
               Food Waste Quotes
             </Link>

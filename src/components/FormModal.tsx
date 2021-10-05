@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 
+import "./FormModal.scss";
+
 export default function FormModal({
   show,
   onHide,
@@ -20,7 +22,16 @@ export default function FormModal({
         <p className="fw-bolder h3">Add Quote</p>
       </Modal.Header>
       <Modal.Body>
-        <p>Add your Quote here</p>
+        <p className="fw-bold h5">Example</p>
+        <p className="example">
+          Methane Produced by this Meal equals to a dog's fart of __PARAM__
+          days!
+        </p>
+        <p className="text-muted fst-italic">
+          __PARAM__ will be replaced by 'count' proportional to amount of food
+          left
+        </p>
+        <hr />
         <label className="form-label fw-bold">Quote</label>
         <textarea
           className="form-control"
@@ -45,7 +56,7 @@ export default function FormModal({
           Cancel
         </button>
         <button
-          className="btn btn-primary"
+          className="btn btn-success"
           onClick={() => {
             onHide();
             onSubmit(quote, lang, count);
