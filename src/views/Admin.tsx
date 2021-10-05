@@ -6,6 +6,7 @@ import { Quote } from "../models/Quote";
 
 import AdminModal from "../components/AdminModal";
 import FormModal from "../components/FormModal";
+import DeleteModal from "../components/DeleteModal";
 import Alert from "../components/Alert";
 
 export default function Admin() {
@@ -59,10 +60,11 @@ export default function Admin() {
     setAlertContent("");
   }
 
-  async function handleNewQuote(quote: string, count: number) {
+  async function handleNewQuote(quote: string, lang: string, count: number) {
     try {
       await axios.post("/api/addquote", {
         quote,
+        lang,
         count,
         password: localStorage.getItem("password"),
       });
@@ -80,13 +82,26 @@ export default function Admin() {
     setTimeout(() => resetAlert(), 3000);
   }
 
+  const [deleteModal, setDeleteModal] = useState("");
+
   async function deleteQuote(id: string) {
-    return async () => {
+    try {
       await axios.post("/api/deletequote", {
         id,
         password: localStorage.getItem("password"),
       });
-    };
+      setAlertContent("Quote deleted Successfully");
+      setAlertType("success");
+      setShowAlert(true);
+      requestQuotes();
+    } catch (err) {
+      // @ts-ignore
+      setAlertContent(err.message as string);
+      setAlertType("danger");
+      setShowAlert(true);
+    }
+
+    setTimeout(() => resetAlert(), 3000);
   }
 
   return (
@@ -102,6 +117,7 @@ export default function Admin() {
       <table className="table table-bordered">
         <thead>
           <tr className="table-secondary">
+            <th>Language</th>
             <th>Quotes</th>
             <th>Count</th>
             <th>Actions</th>
@@ -110,11 +126,16 @@ export default function Admin() {
         <tbody>
           {quotes.map((quote, index) => (
             <tr key={index}>
+              <td>{quote.lang}</td>
               <td>{quote.quote}</td>
               <td>{quote.count}</td>
               <td className="d-flex flex-row justify-content-around">
-                <button className="btn btn-success">Edit</button>
-                <button className="btn btn-danger">Delete</button>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => setDeleteModal(quote.id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
@@ -129,6 +150,11 @@ export default function Admin() {
         show={showForm}
         onHide={() => setShowForm(false)}
         onSubmit={handleNewQuote}
+      />
+      <DeleteModal
+        id={deleteModal}
+        onClose={() => setDeleteModal("")}
+        onConfirm={deleteQuote}
       />
     </div>
   );

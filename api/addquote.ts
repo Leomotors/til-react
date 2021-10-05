@@ -5,11 +5,11 @@ import { collection, addDoc } from "firebase/firestore";
 import auth from "../lib/AdminAuth";
 
 export default async (req: VercelRequest, res: VercelResponse) => {
-  const { quote, count, password } = req.body;
+  const { quote, lang, count, password } = req.body;
 
   if (!auth(password as string, res)) return;
 
-  if (!(quote.length && count)) {
+  if (!(quote.length && count && (lang == "en" || lang == "th"))) {
     res.status(400).send("Bad Request");
     return;
   }
@@ -17,6 +17,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   try {
     await addDoc(collection(db, "quotes"), {
       quote,
+      lang,
       count,
       created_at: Date().toString(),
     });

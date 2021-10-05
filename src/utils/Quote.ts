@@ -2,9 +2,17 @@ import axios from "axios";
 
 import { miniQuote, Quote } from "../models/Quote";
 
-export async function randomQuote(percent: number): Promise<string> {
+export async function randomQuote(
+  percent: number,
+  lang: string
+): Promise<string> {
   try {
-    const res = await axios.get<miniQuote>(`/api/quote?percent=${percent}`);
+    const res = await axios.get<miniQuote>("/api/quote", {
+      params: {
+        percent,
+        lang,
+      },
+    });
     return res.data.quote;
   } catch (err) {
     // @ts-ignore

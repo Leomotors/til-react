@@ -24,7 +24,9 @@ export default function AdminModal({
   return (
     <Modal show={show} onHide={goHome} backdrop="static" keyboard={true}>
       <Modal.Header closeButton>
-        <Modal.Title>Please Enter Password</Modal.Title>
+        <Modal.Title>
+          <p className="fw-bolder h3">Please Enter Password</p>
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {(errorMsg ?? "").length > 0 && (

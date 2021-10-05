@@ -1,14 +1,20 @@
 import { db } from "./Firestore";
 import { collection, getDocs } from "firebase/firestore";
 
-import { Quote } from "../src/models/Quote";
+import { miniQuote, Quote } from "../src/models/Quote";
 
-export async function getQuote(percent: number): Promise<string> {
-  const data = await getAllQuotes();
+export async function getQuote(
+  percent: number,
+  lang: string
+): Promise<miniQuote> {
+  const data = (await getAllQuotes()).filter((q) => q.lang == lang);
   console.log(`data: ${data}`);
   const quote = data[Math.floor(Math.random() * data.length)];
   const count = Math.ceil((quote.count * (100 - percent)) / 100);
-  return quote.quote.replace("__PARAM__", count.toString());
+  return {
+    quote: quote.quote.replace("__PARAM__", count.toString()),
+    lang: quote.lang,
+  };
 }
 
 export async function getAllQuotes(): Promise<Quote[]> {
@@ -16,11 +22,13 @@ export async function getAllQuotes(): Promise<Quote[]> {
 
   let result: Quote[] = [];
   querySnapshot.forEach((doc) => {
+    const data = doc.data();
     result.push({
       id: doc.id,
-      quote: doc.data().quote,
-      count: doc.data().count,
-      created_at: doc.data().created_at,
+      lang: data.lang,
+      quote: data.quote,
+      count: data.count,
+      created_at: data.created_at,
     });
   });
   return result;

@@ -8,9 +8,10 @@ export default function FormModal({
 }: {
   show: boolean;
   onHide: () => void;
-  onSubmit: (quote: string, count: number) => Promise<void>;
+  onSubmit: (quote: string, lang: string, count: number) => Promise<void>;
 }) {
   const [quote, setQuote] = useState("");
+  const [lang, setLang] = useState("en");
   const [count, setCount] = useState(0);
 
   return (
@@ -25,6 +26,14 @@ export default function FormModal({
           className="form-control"
           onChange={(e) => setQuote(e.target.value)}
         />
+        <label className="form-label fw-bold">Language</label>
+        <select
+          className="form-select"
+          onChange={(e) => setLang(e.target.value)}
+        >
+          <option value="en">English</option>
+          <option value="th">Thai</option>
+        </select>
         <label className="form-label fw-bold">Count</label>
         <input
           type="number"
@@ -39,7 +48,7 @@ export default function FormModal({
           className="btn btn-primary"
           onClick={() => {
             onHide();
-            onSubmit(quote, count);
+            onSubmit(quote, lang, count);
           }}
           disabled={!(quote.length && quote.includes("__PARAM__") && count)}
         >
