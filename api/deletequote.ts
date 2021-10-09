@@ -1,7 +1,7 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 
 import { db } from "../lib/Firestore";
-import { doc, deleteDoc } from "firebase/firestore";
+import { addDoc, collection, doc, deleteDoc, getDoc } from "firebase/firestore";
 import auth from "../lib/AdminAuth";
 
 export default async (req: VercelRequest, res: VercelResponse) => {
@@ -15,8 +15,13 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   }
 
   try {
-    await deleteDoc(doc(db, "quotes", id));
+    const docRef = doc(db, "quotes", id);
+    const docSnap = await getDoc(docRef);
+    const docData = docSnap.data();
+    await addDoc(collection(db, "deleted"), { ...docData });
+    await deleteDoc(docRef);
     res.status(200).send("Deleted Quote Successfully");
+    console.log("API deletequote responded successfully (200)");
   } catch (err) {
     res.status(503).send("Internal Server Error");
   }
