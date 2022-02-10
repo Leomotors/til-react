@@ -1,6 +1,6 @@
 import "./App.scss";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import Home from "./views/Home";
 import Admin from "./views/Admin";
@@ -26,10 +26,10 @@ export default function App() {
         </div>
 
         <div className="router-view col-12 col-lg-9 col-xl-6 mx-auto">
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/admin" component={Admin} />
-          </Switch>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/admin" element={<Admin />} />
+          </Routes>
         </div>
       </div>
     </Router>

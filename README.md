@@ -1,3 +1,5 @@
-# Food Waste Quotes
+# Today I learned
 
-Quotes that will encourage you to not make food waste
+Most of the Code are from [food-waste-quotes](https://github.com/Food-Busters/food-waste-quotes)
+
+Because the system is similar, so why rewrite?

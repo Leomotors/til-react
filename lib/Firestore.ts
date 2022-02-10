@@ -4,12 +4,12 @@ import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_APIKEY,
-  authDomain: "food-waste-quotes.firebaseapp.com",
-  projectId: "food-waste-quotes",
-  storageBucket: "food-waste-quotes.appspot.com",
-  messagingSenderId: "670078744840",
-  appId: "1:670078744840:web:a6e182ba8c33ed5ff794bd",
-  measurementId: "G-C2BMXF8P5X",
+  authDomain: process.env.FIREBASE_AUTHDOMAIN,
+  projectId: process.env.FIREBASE_PROJECTID,
+  storageBucket: process.env.FIREBASE_STORAGEBUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGINGSENDERID,
+  appId: process.env.FIREBASE_APPID,
+  measurementId: process.env.FIREBASE_MEASUREMENTID,
 };
 
 const app = initializeApp(firebaseConfig);
