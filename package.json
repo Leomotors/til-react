@@ -3,7 +3,7 @@
   "version": "1.0.11",
   "description": "Today I Learned",
   "scripts": {
-    "dev": "yarn lm-inc && yarn lm-config && vite --port $PORT",
+    "dev": "yarn lm-config && vite --port $PORT",
     "build": "yarn lm-config && vite build",
     "serve": "vite preview",
     "lint": "prettier --check \"src/**/*.{ts,tsx}\" && eslint src",

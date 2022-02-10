@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import { getAllQuote } from "../utils/Quote";
-import { Quote } from "../models/Quote";
+import { getAll } from "../utils/client_get";
+import { Learned, LearnedWithID } from "../models/Learned";
 
 import AdminModal from "../components/AdminModal";
 import FormModal from "../components/FormModal";
@@ -10,7 +10,7 @@ import DeleteModal from "../components/DeleteModal";
 import Alert from "../components/Alert";
 
 export default function Admin() {
-  const [quotes, setQuotes] = useState<Quote[]>([]);
+  const [datas, setDatas] = useState<LearnedWithID[]>([]);
   const [showAdmin, setShowAdmin] = useState(false);
   const [showForm, setShowForm] = useState(false);
 
@@ -20,7 +20,7 @@ export default function Admin() {
     if (!localStorage.getItem("password")) {
       setShowAdmin(true);
     } else {
-      requestQuotes();
+      requestLearned();
     }
   }, []);
 
@@ -28,20 +28,20 @@ export default function Admin() {
     return () => {
       setShowAdmin(false);
       localStorage.setItem("password", newPassword);
-      requestQuotes();
+      requestLearned();
     };
   }
 
-  async function requestQuotes() {
-    const quotes = await getAllQuote(localStorage.getItem("password") ?? "");
+  async function requestLearned() {
+    const quotes = await getAll();
     if (typeof quotes == "string") {
       setErrorMsg(quotes);
       setShowAdmin(true);
     } else {
-      setQuotes(
-        quotes.sort((a: Quote, b: Quote) => {
-          const ac = a.created_at;
-          const bc = b.created_at;
+      setDatas(
+        quotes.sort((a: Learned, b: Learned) => {
+          const ac = a.date;
+          const bc = b.date;
           if (ac < bc) return 1;
           else if (ac > bc) return -1;
           else return 0;
@@ -60,18 +60,17 @@ export default function Admin() {
     setAlertContent("");
   }
 
-  async function handleNewQuote(quote: string, lang: string, count: number) {
+  async function handleNewLearn(what: string, date: string) {
     try {
-      await axios.post("/api/addquote", {
-        quote,
-        lang,
-        count,
+      await axios.post("/api/add", {
+        what,
+        date,
         password: localStorage.getItem("password"),
       });
       setAlertContent("Quote added Successfully");
       setAlertType("success");
       setShowAlert(true);
-      requestQuotes();
+      requestLearned();
     } catch (err) {
       // @ts-ignore
       setAlertContent(err.message as string);
@@ -84,16 +83,16 @@ export default function Admin() {
 
   const [deleteModal, setDeleteModal] = useState("");
 
-  async function deleteQuote(id: string) {
+  async function deleteLearn(id: string) {
     try {
-      await axios.post("/api/deletequote", {
+      await axios.post("/api/delete", {
         id,
         password: localStorage.getItem("password"),
       });
-      setAlertContent("Quote deleted Successfully");
+      setAlertContent("Learn deleted Successfully");
       setAlertType("success");
       setShowAlert(true);
-      requestQuotes();
+      requestLearned();
     } catch (err) {
       // @ts-ignore
       setAlertContent(err.message as string);
@@ -112,27 +111,25 @@ export default function Admin() {
         onClick={() => setShowForm(true)}
       >
         <i className="bi bi-plus me-1 fs-5" />
-        <span className="fs-5">Add Quote</span>
+        <span className="fs-5">Add</span>
       </button>
       <table className="table table-bordered">
         <thead>
           <tr className="table-secondary">
-            <th>Language</th>
-            <th>Quotes</th>
-            <th>Count</th>
+            <th>Learned</th>
+            <th>Date</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {quotes.map((quote, index) => (
+          {datas.map((data, index) => (
             <tr key={index}>
-              <td>{quote.lang}</td>
-              <td>{quote.quote}</td>
-              <td>{quote.count}</td>
+              <td>{data.what}</td>
+              <td>{data.date}</td>
               <td className="d-flex flex-row justify-content-around">
                 <button
                   className="btn btn-danger"
-                  onClick={() => setDeleteModal(quote.id)}
+                  onClick={() => setDeleteModal(data.id)}
                 >
                   Delete
                 </button>
@@ -149,12 +146,12 @@ export default function Admin() {
       <FormModal
         show={showForm}
         onHide={() => setShowForm(false)}
-        onSubmit={handleNewQuote}
+        onSubmit={handleNewLearn}
       />
       <DeleteModal
         id={deleteModal}
         onClose={() => setDeleteModal("")}
-        onConfirm={deleteQuote}
+        onConfirm={deleteLearn}
       />
     </div>
   );

@@ -10,45 +10,28 @@ export default function FormModal({
 }: {
   show: boolean;
   onHide: () => void;
-  onSubmit: (quote: string, lang: string, count: number) => Promise<void>;
+  onSubmit: (what: string, date: string) => Promise<void>;
 }) {
-  const [quote, setQuote] = useState("");
-  const [lang, setLang] = useState("en");
-  const [count, setCount] = useState(0);
+  const [what, setWhat] = useState("");
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
   return (
     <Modal show={show} onHide={onHide} backdrop="static" keyboard={true}>
       <Modal.Header closeButton>
-        <p className="fw-bolder h3">Add Quote</p>
+        <p className="fw-bolder h3">Add</p>
       </Modal.Header>
       <Modal.Body>
-        <p className="fw-bold h5">Example</p>
-        <p className="example">
-          Methane Produced by this Meal equals to a dog's fart of __PARAM__
-          days!
-        </p>
-        <p className="text-muted fst-italic">
-          __PARAM__ will be replaced by 'count' proportional to amount of food
-          left
-        </p>
-        <hr />
-        <label className="form-label fw-bold">Quote</label>
+        <label className="form-label fw-bold">What have I learned?</label>
         <textarea
           className="form-control"
-          onChange={(e) => setQuote(e.target.value)}
+          onChange={(e) => setWhat(e.target.value)}
         />
-        <label className="form-label fw-bold">Language</label>
-        <select
-          className="form-select"
-          onChange={(e) => setLang(e.target.value)}
-        >
-          <option value="en">English</option>
-          <option value="th">Thai</option>
-        </select>
-        <label className="form-label fw-bold">Count</label>
+        <label className="date-picker fw-bold">Date</label>
         <input
-          type="number"
-          onChange={(e) => setCount(parseInt(e.target.value))}
+          type="date"
+          name="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
         />
       </Modal.Body>
       <Modal.Footer>
@@ -59,9 +42,9 @@ export default function FormModal({
           className="btn btn-success"
           onClick={() => {
             onHide();
-            onSubmit(quote, lang, count);
+            onSubmit(what, date);
           }}
-          disabled={!(quote.length && quote.includes("__PARAM__") && count)}
+          disabled={!what}
         >
           Submit
         </button>

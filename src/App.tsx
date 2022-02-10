@@ -14,10 +14,10 @@ export default function App() {
         <div className="navbar bg-primary px-4">
           <div className="brand" title={`Built at ${BuildTime}`}>
             <Link to="/" className="navbar-brand fs-2">
-              Food Waste Quotes
+              Today I Learned
             </Link>
             <span className="text-white fs-5">{Version}</span>
-            <span className="preview fs-5">PREVIEW</span>
+            <span className="preview fs-5">Leomotors</span>
           </div>
 
           <Link to="/admin" className="navbar-option fs-3">

@@ -15,13 +15,13 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   }
 
   try {
-    const docRef = doc(db, "quotes", id);
+    const docRef = doc(db, "learned", id);
     const docSnap = await getDoc(docRef);
     const docData = docSnap.data();
     await addDoc(collection(db, "deleted"), { ...docData });
     await deleteDoc(docRef);
-    res.status(200).send("Deleted Quote Successfully");
-    console.log("API deletequote responded successfully (200)");
+    res.status(200).send("Deleted Successfully (but why you would?)");
+    console.log("API delete responded successfully (200)");
   } catch (err) {
     res.status(503).send("Internal Server Error");
   }
