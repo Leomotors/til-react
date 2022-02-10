@@ -1,16 +1,5 @@
-.navbar-brand,
-.navbar-brand:hover,
-.navbar-option {
+.navbar-brand {
   color: white;
-}
-
-.navbar-option:hover {
-  color: gray;
-}
-
-.navbar-option,
-.navbar-option:hover {
-  text-decoration: none;
 }
 
 .preview {
@@ -18,4 +7,10 @@
   padding: 0.2em 0.5em;
   border-radius: 0.25em;
   background-color: white;
+}
+
+a,
+a:hover {
+  color: black;
+  text-decoration: none;
 }

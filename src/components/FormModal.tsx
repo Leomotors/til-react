@@ -26,7 +26,7 @@ export default function FormModal({
           className="form-control"
           onChange={(e) => setWhat(e.target.value)}
         />
-        <label className="date-picker fw-bold">Date</label>
+        <label className="date-picker fw-bold pt-3 pb-2">Date</label>
         <input
           type="date"
           name="date"

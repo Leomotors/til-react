@@ -1,6 +1,6 @@
 {
   "name": "til-react",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Today I Learned",
   "scripts": {
     "dev": "yarn lm-config && vite --port $PORT",

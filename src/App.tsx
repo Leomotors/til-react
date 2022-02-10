@@ -17,12 +17,15 @@ export default function App() {
               Today I Learned
             </Link>
             <span className="text-white fs-5">{Version}</span>
-            <span className="preview fs-5">Leomotors</span>
+            <a
+              className="preview fs-5"
+              href="https://github.com/Leomotors"
+              target="_blank"
+              rel="noopener"
+            >
+              Leomotors
+            </a>
           </div>
-
-          <Link to="/admin" className="navbar-option fs-3">
-            Admin
-          </Link>
         </div>
 
         <div className="router-view col-12 col-lg-9 col-xl-6 mx-auto">

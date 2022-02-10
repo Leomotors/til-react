@@ -106,13 +106,20 @@ export default function Admin() {
   return (
     <div className="Admin container-lg p-5 d-flex flex-column">
       <Alert show={showAlert} type={alertType} content={alertContent} />
-      <button
-        className="btn btn-dark align-self-end mb-2"
-        onClick={() => setShowForm(true)}
-      >
-        <i className="bi bi-plus me-1 fs-5" />
-        <span className="fs-5">Add</span>
-      </button>
+      <div className="buttons d-flex flex-row justify-content-between">
+        <button
+          className="btn btn-dark mb-2"
+          onClick={() => setShowAdmin(true)}
+        >
+          <i className="bi bi-lock me-1 fs-5" />
+          <span className="fs-5">Reenter Password</span>
+        </button>
+        <button className="btn btn-dark mb-2" onClick={() => setShowForm(true)}>
+          <i className="bi bi-plus me-1 fs-5" />
+          <span className="fs-5">Add</span>
+        </button>
+      </div>
+
       <table className="table table-bordered">
         <thead>
           <tr className="table-secondary">

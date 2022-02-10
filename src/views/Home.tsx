@@ -21,16 +21,29 @@ export default function Home() {
     <div className="Home d-flex flex-column justify-content-start align-items-center p-4">
       <h1>Today I Learned</h1>
       {error && <p>{error}</p>}
-      {datas.map((data) => (
-        <div
-          className="items d-flex flex-row justify-content-center gap-2"
-          key={data.id}
+      {datas.length ? (
+        datas.map((data) => (
+          <div
+            className="items d-flex flex-row justify-content-center gap-2"
+            key={data.id}
+          >
+            <p>{data.date}</p>
+            <p>{data.what}</p>
+          </div>
+        ))
+      ) : (
+        <p>No data. Probably loading</p>
+      )}
+      <p>
+        Source Code for this website&nbsp;
+        <a
+          href="https://github.com/Leomotors/til-react"
+          target="_blank"
+          rel="noopener"
         >
-          <p>{data.date}</p>
-          <p>{data.what}</p>
-        </div>
-      ))}
-      <p>Source: GitHub</p>
+          here
+        </a>
+      </p>
     </div>
   );
 }

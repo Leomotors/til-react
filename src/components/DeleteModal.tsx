@@ -23,7 +23,9 @@ export default function DeleteModal({
       </Modal.Header>
       <Modal.Body>
         <p>Are you sure you want to delete this?</p>
-        <p className="text-danger">This action can't be undone!</p>
+        <p className="text-danger">
+          This action can't be undone! (Actually can lmao)
+        </p>
       </Modal.Body>
       <Modal.Footer>
         <button className="btn btn-secondary" onClick={onClose}>
