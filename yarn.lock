@@ -683,6 +683,11 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@leomotors/scripts@^3.0.7":
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/@leomotors/scripts/-/scripts-3.0.7.tgz#8f5c1bc8d1f46a47531697b606ce54f5e4b9f0bd"
+  integrity sha512-P4+WartMVzqLLHR9PCH6UykBvlOz5b1ibttmpqPGWd/IDlIrrGEgBnb8CttD6EKhKCjjc3d3FWCdIjxCO+63Yg==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -2247,11 +2252,6 @@ jszip@^3.6.0:
     pako "~1.0.2"
     readable-stream "~2.3.6"
     set-immediate-shim "~1.0.1"
-
-leomotors-automation@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/leomotors-automation/-/leomotors-automation-3.0.0.tgz#e31f729903f3d330264d4f184ebc128c33d55abf"
-  integrity sha512-cwVv/30BpCko4ErQSCz/gefHSwaEVFZG/FV50Ilie79R+DcTWNC7xx9Ti/rIgrSHeTmeEfOszDin9D4vKnKSTg==
 
 levn@^0.4.1:
   version "0.4.1"
