@@ -21,7 +21,7 @@ export default function App() {
               className="preview fs-5"
               href="https://github.com/Leomotors"
               target="_blank"
-              rel="noopener"
+              rel="noreferrer"
             >
               Leomotors
             </a>

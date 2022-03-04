@@ -39,7 +39,7 @@ export default function Home() {
         <a
           href="https://github.com/Leomotors/til-react"
           target="_blank"
-          rel="noopener"
+          rel="noreferrer"
         >
           here
         </a>
